@@ -1,0 +1,67 @@
+{% load static %}
+<footer class="container-editorial mt-80 mb-5">
+    <!-- Minimal Luxury Editorial Newspaper Footer Card (#FBF8F3) -->
+    <div class="newspaper-footer-card p-4 p-md-5 p-lg-6">
+        <div class="row g-4 g-lg-5 align-items-center justify-content-between">
+            <!-- Left Column: Brand & Social Icons -->
+            <div class="col-lg-5 col-md-6">
+                <div class="footer-brand mb-3">
+                    <span class="brand-title logo font-serif fw-bold text-dark d-block">BLOGIX</span>
+                    <span class="brand-tagline tagline font-mono text-uppercase text-gold d-block mt-2 tracking-018">TECHNOLOGY &bull; RESEARCH &bull; STORIES</span>
+                </div>
+                <p class="font-serif fs-5 text-muted-paper leading-relaxed mb-4">
+                    Independent journalism exploring artificial intelligence, software engineering, startups, design, cybersecurity, and the future of technology.
+                </p>
+                <div class="social-links-mag d-flex gap-3">
+                    <a href="https://twitter.com" target="_blank" class="newspaper-outline-social" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://github.com" target="_blank" class="newspaper-outline-social" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="https://linkedin.com" target="_blank" class="newspaper-outline-social" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" class="newspaper-outline-social" aria-label="RSS Feed"><i class="fa-solid fa-rss"></i></a>
+                </div>
+            </div>
+
+            <!-- Gap Spacer Column -->
+            <div class="d-none d-lg-block col-lg-1"></div>
+
+            <!-- Right Column: Newsletter Section -->
+            <div class="col-lg-6 col-md-6">
+                <h6 class="font-mono text-uppercase fw-bold mb-2 text-dark text-xs tracking-018 border-bottom-gold pb-2 d-inline-block">
+                    WEEKLY NEWSLETTER
+                </h6>
+                <p class="font-serif fs-5 text-muted-paper mb-4 mt-3 leading-relaxed">
+                    Stay ahead of AI with thoughtful weekly stories, research insights, and technology analysis.
+                </p>
+                <form action="#" method="POST" class="d-flex flex-column gap-3">
+                    <div class="position-relative">
+                        <i class="fa-regular fa-envelope position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
+                        <input type="email" class="form-control form-control-paper-large font-mono text-dark ps-5" placeholder="Enter your email address" required>
+                    </div>
+                    <button class="btn btn-gold-newspaper w-100 font-mono py-3 rounded-3 fw-bold text-uppercase text-xs d-flex align-items-center justify-content-center gap-2" type="submit">
+                        <span>Subscribe</span>
+                        <i class="fa-solid fa-arrow-right-long ms-1"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Thin Divider Below Card -->
+    <div class="gold-separator my-4"></div>
+
+    <!-- Bottom Section Below Card (Minimal Clean Text) -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center font-mono text-xs text-muted-paper gap-3">
+        <!-- Left Side: Copyright & Honesty Motto -->
+        <div class="text-center text-md-start">
+            <span class="fw-bold text-dark">&copy; {% now "Y" %} BLOGIX Media</span>
+            <span class="mx-2">&bull;</span>
+            <span class="font-serif fst-italic">Independent. Editorially Honest.</span>
+        </div>
+
+        <!-- Right Side: Clean Policy Links -->
+        <div class="d-flex gap-4 text-center text-md-end">
+            <a href="{% url 'terms_of_service' %}" class="text-muted-paper text-decoration-none hover-gold">Privacy</a>
+            <a href="{% url 'terms_of_service' %}" class="text-muted-paper text-decoration-none hover-gold">Terms</a>
+            <a href="{% url 'contact' %}" class="text-muted-paper text-decoration-none hover-gold">Contact</a>
+        </div>
+    </div>
+</footer>

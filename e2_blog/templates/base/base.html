@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="editorial-aged-app">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}BLOGIX — Apple × Wired × NYT Magazine{% endblock %}</title>
+
+    <!-- Google Fonts Stack: Cormorant Garamond, Playfair Display, Inter, IBM Plex Sans, IBM Plex Mono, Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- Master Aged Paper Editorial CSS -->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}?v=2026_v5_bigger_fonts">
+
+    <style>
+        /* Exact Background (#F7F3EB) with 95-98% Warm Overlay (10-12% Faded Newspaper Texture) */
+        html, body.editorial-aged-theme {
+            background-color: #F7F3EB !important;
+            background-image: 
+                linear-gradient(rgba(247, 243, 235, 0.95), rgba(247, 243, 235, 0.98)),
+                url("{% static 'images/newspaper_bg.jpg' %}") !important;
+            background-size: cover, 650px auto !important;
+            background-position: center !important;
+            background-attachment: fixed !important;
+            color: #171717 !important;
+            min-height: 100vh;
+            overflow-x: clip !important;
+        }
+
+        .container-xl, .container-editorial {
+            max-width: 1400px !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            padding-left: 32px !important;
+            padding-right: 32px !important;
+        }
+    </style>
+</head>
+<body class="editorial-aged-theme">
+    <!-- Reading Progress Bar -->
+    <div id="scroll-progress-bar" class="scroll-progress-bar"></div>
+
+    <!-- Header Navigation -->
+    {% include 'base/header.html' %}
+
+    <!-- Main Content Wrapper -->
+    <main class="main-content-wrapper py-4 position-relative">
+        <div class="container-editorial">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
+    <!-- Footer Card -->
+    {% include 'base/footer.html' %}
+
+    <!-- CMD+K Search Modal -->
+    <div class="modal fade search-modal-overlay" id="cmdKModal" tabindex="-1" aria-labelledby="cmdKModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content aged-modal-card rounded-4 p-2">
+                <div class="modal-header border-bottom border-newspaper p-3">
+                    <form action="{% url 'search' %}" method="GET" class="w-100 d-flex align-items-center">
+                        <span class="fs-5 me-2 text-gold" style="pointer-events: none;">🔍</span>
+                        <input 
+                            type="text" 
+                            name="keyword" 
+                            id="cmdKInput" 
+                            class="form-control bg-transparent border-0 text-dark shadow-none fs-5 font-serif search-modal-input" 
+                            placeholder="Search BLOGIX stories, AI research, cloud architecture..." 
+                            autocomplete="off"
+                            required
+                        >
+                    </form>
+                </div>
+                <div class="modal-body p-3">
+                    <div class="font-mono text-uppercase text-muted small mb-2">QUICK TOPICS</div>
+                    <div class="d-flex flex-wrap gap-2 font-nav">
+                        <a href="{% url 'search' %}?keyword=Artificial Intelligence" class="aged-chip">Artificial Intelligence</a>
+                        <a href="{% url 'search' %}?keyword=Programming" class="aged-chip">Programming</a>
+                        <a href="{% url 'search' %}?keyword=Next.js" class="aged-chip">Next.js</a>
+                        <a href="{% url 'search' %}?keyword=React" class="aged-chip">React</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Floating Button -->
+    <button id="back-to-top" class="back-to-top-btn" aria-label="Back to top">
+        ↑
+    </button>
+
+    <!-- Bootstrap 5 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Scroll Progress Bar
+            window.addEventListener('scroll', function() {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                
+                const progressBar = document.getElementById('scroll-progress-bar');
+                if (progressBar) {
+                    progressBar.style.width = scrolled + '%';
+                }
+
+                const backToTopBtn = document.getElementById('back-to-top');
+                if (backToTopBtn) {
+                    if (winScroll > 300) {
+                        backToTopBtn.classList.add('show');
+                    } else {
+                        backToTopBtn.classList.remove('show');
+                    }
+                }
+            });
+
+            // Smooth Scroll Back to Top
+            const backToTopBtn = document.getElementById('back-to-top');
+            if (backToTopBtn) {
+                backToTopBtn.addEventListener('click', function() {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+
+            // CMD+K Keyboard Listener & Modal Focus Handler
+            const cmdKModalEl = document.getElementById('cmdKModal');
+            if (cmdKModalEl) {
+                cmdKModalEl.addEventListener('shown.bs.modal', function () {
+                    const input = document.getElementById('cmdKInput');
+                    if (input) {
+                        input.focus();
+                        input.select();
+                    }
+                });
+            }
+
+            document.addEventListener('keydown', function(e) {
+                if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                    e.preventDefault();
+                    const searchModal = new bootstrap.Modal(cmdKModalEl);
+                    searchModal.show();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

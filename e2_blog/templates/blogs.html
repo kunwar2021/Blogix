@@ -1,0 +1,131 @@
+{% extends './base/base.html' %}
+{% block title %}{{ single_post.title }} — Antigravity Editorial{% endblock %}
+
+{% block content %}
+<div class="article-wrapper my-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb mb-0 micro-meta">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-dark text-decoration-none fw-bold">HOME</a></li>
+            <li class="breadcrumb-item active text-dark fw-bold" aria-current="page">{{ single_post.category.category_name|upper }}</li>
+        </ol>
+    </nav>
+
+    <div class="row g-4">
+        <!-- Main Article Content -->
+        <div class="col-lg-8">
+            <article class="paper-text-box p-4 p-md-5 rounded-3 border border-dark mb-4">
+                <!-- Article Header -->
+                <header class="mb-4 pb-3 border-bottom border-dark">
+                    <span class="badge bg-dark text-white font-monospace text-uppercase mb-2 px-3 py-2 fw-bold">
+                        {{ single_post.category.category_name }}
+                    </span>
+                    <h1 class="display-5 font-serif fw-bold text-dark mb-3">{{ single_post.title }}</h1>
+                    
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 micro-meta text-dark fw-bold mt-3">
+                        <div class="d-flex align-items-center gap-2">
+                            <span>BY {{ single_post.author.username|upper }}</span>
+                            <span>&bull;</span>
+                            <span>{{ single_post.created_at|date:"F d, Y"|upper }}</span>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Hero Image Frame -->
+                {% if single_post.blog_image %}
+                <div class="article-hero-img mb-4 rounded-2 border border-dark overflow-hidden">
+                    <img src="{{ single_post.blog_image.url }}" class="img-fluid w-100 object-cover" style="max-height: 440px;" alt="{{ single_post.title }}">
+                </div>
+                {% endif %}
+
+                <!-- Short Description Lead -->
+                <div class="article-lead font-serif fs-3 text-dark fw-medium mb-4 p-3 bg-white border-start border-4 border-dark rounded-end">
+                    {{ single_post.short_description }}
+                </div>
+
+                <!-- Main Body -->
+                <section class="article-body font-serif fs-4 text-dark leading-relaxed mb-5">
+                    {{ single_post.blog_body|linebreaks }}
+                </section>
+
+                <hr class="border-dark my-5">
+
+                <!-- Discussion & Comments Section -->
+                <section class="comments-section">
+                    <h5 class="fw-bold text-dark font-monospace mb-4">
+                        COMMENTS ({{ comment_count }})
+                    </h5>
+
+                    <!-- Comments List -->
+                    {% if comments %}
+                    <div class="comments-list mb-4 d-flex flex-column gap-3">
+                        {% for comment in comments %}
+                        <div class="comment-bubble p-3 rounded-2 bg-white border border-dark">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="fw-bold text-dark small micro-meta">
+                                    {{ comment.user }}
+                                </span>
+                                <span class="text-dark text-xs font-monospace fw-bold">{{ comment.created_at|timesince }} ago</span>
+                            </div>
+                            <p class="mb-0 text-dark font-serif fs-5">{{ comment.comment }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="p-4 text-center rounded-2 bg-white text-dark mb-4 border border-dark">
+                        <p class="mb-0 font-serif fs-5">No comments published yet. Be the first to join the discussion!</p>
+                    </div>
+                    {% endif %}
+
+                    <!-- Comment Form -->
+                    <div class="comment-form-card p-4 rounded-3 bg-white border border-dark">
+                        <h6 class="fw-bold mb-3 text-dark font-monospace">LEAVE A COMMENT</h6>
+                        {% if user.is_authenticated %}
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <textarea name="comment" rows="3" placeholder="Write your comment here..." class="form-control form-control-sm border-dark" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-dark btn-sm px-4 font-monospace">
+                                POST COMMENT →
+                            </button>
+                        </form>
+                        {% else %}
+                        <div class="text-center py-2">
+                            <p class="text-dark font-serif fs-5 mb-2">Please sign in to post a comment.</p>
+                            <a href="{% url 'login' %}" class="btn btn-dark btn-sm px-4 font-monospace">
+                                SIGN IN TO COMMENT
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </section>
+            </article>
+        </div>
+
+        <!-- Right Sidebar -->
+        <aside class="col-lg-4">
+            <div class="paper-text-box p-4 rounded-3 border border-dark mb-4">
+                <h6 class="font-monospace text-uppercase text-dark fw-bold small mb-3">AUTHOR INFORMATION</h6>
+                <div class="d-flex align-items-center gap-3">
+                    <div class="avatar-circle-lg bg-dark text-white fw-bold fs-4">
+                        {{ single_post.author.username|slice:":1"|upper }}
+                    </div>
+                    <div>
+                        <h6 class="fw-bold text-dark mb-0 fs-5 font-serif">{{ single_post.author }}</h6>
+                        <span class="badge bg-dark text-white text-xs font-monospace">Verified Author</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="paper-text-box p-4 rounded-3 border border-dark text-center">
+                <h6 class="fw-bold text-dark mb-2 font-serif fs-4">Enjoyed this story?</h6>
+                <p class="text-dark small mb-3">Share it with your colleagues and friends!</p>
+                <a href="{% url 'home' %}" class="btn btn-dark btn-sm w-100 fw-bold font-monospace">
+                    ← BACK TO HOME
+                </a>
+            </div>
+        </aside>
+    </div>
+</div>
+{% endblock %}

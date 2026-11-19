@@ -1,0 +1,93 @@
+{% load static %}
+<header class="antigravity-newspaper-header sticky-top border-bottom border-newspaper">
+    <!-- Main Header Bar -->
+    <div class="container-editorial py-2 px-3 px-xl-4">
+        <div class="d-flex align-items-center justify-content-between w-100 flex-nowrap">
+            
+            <!-- Left Column: Brand BLOGIX (Anchored Left) -->
+            <div class="d-flex align-items-center flex-shrink-0" style="flex: 1 0 auto; min-width: 190px;">
+                <a class="navbar-brand me-0 d-flex align-items-center text-decoration-none py-0" href="{% url 'home' %}">
+                    <div class="brand-wordmark-wrapper d-flex flex-column justify-content-center">
+                        <span class="brand-title logo font-serif fw-bold text-dark d-block lh-1" style="font-size: 1.65rem; letter-spacing: 0.1em;">BLOGIX</span>
+                        <span class="brand-tagline tagline font-mono text-uppercase text-gold d-block" style="font-size: 0.6rem; letter-spacing: 0.15em; margin-top: 2px;">TECH &bull; RESEARCH &bull; STORIES</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Center Column: Desktop Nav Links (Dead Center with generous spacing) -->
+            <div class="d-none d-lg-flex align-items-center justify-content-center flex-grow-1 px-3">
+                <ul class="nav flex-row align-items-center gap-3 gap-xl-4 font-nav mb-0 list-unstyled">
+                    <li class="nav-item">
+                        <a class="nav-link px-2 py-1 fw-bold text-uppercase {% if request.path == '/' or request.path == '/home/' %}nav-bracket-link{% else %}nav-news-link{% endif %}" href="{% url 'home' %}" style="text-decoration: none; border-bottom: none; font-size: 0.96rem;">
+                            {% if request.path == '/' or request.path == '/home/' %}<span class="text-gold">[STORIES]</span>{% else %}STORIES{% endif %}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-news-link px-2 py-1 fw-semibold text-uppercase text-dark opacity-75" href="{% url 'home' %}#research" style="text-decoration: none; border-bottom: none; font-size: 0.96rem;">RESEARCH</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-news-link px-2 py-1 fw-semibold text-uppercase text-dark opacity-75" href="{% url 'home' %}#journal" style="text-decoration: none; border-bottom: none; font-size: 0.96rem;">JOURNAL</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-news-link px-2 py-1 fw-semibold text-uppercase text-dark opacity-75" href="{% url 'home' %}#categories" style="text-decoration: none; border-bottom: none; font-size: 0.96rem;">CATEGORIES</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-news-link px-2 py-1 fw-semibold text-uppercase text-dark opacity-75 {% if request.path == '/help/' %}active{% endif %}" href="{% url 'help_center' %}" style="text-decoration: none; border-bottom: none; font-size: 0.96rem;">ABOUT</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Right Column: Search, Dashboard & Power Button (Anchored Right) -->
+            <div class="d-flex align-items-center gap-2 gap-md-3 font-nav flex-nowrap justify-content-end flex-shrink-0" style="flex: 1 0 auto; min-width: 190px;">
+                <!-- Search Box (Compact 38px) -->
+                <button class="btn btn-search-compact d-flex align-items-center gap-2 text-dark bg-white border border-newspaper px-3 py-1 rounded-2 shadow-none" data-bs-toggle="modal" data-bs-target="#cmdKModal" title="Search (⌘K)" style="height: 38px;">
+                    <i class="fa-solid fa-magnifying-glass text-gold" style="font-size: 0.85rem;"></i>
+                    <span class="font-inter d-none d-sm-inline text-body-dark fw-medium" style="font-size: 0.88rem;">Search</span>
+                    <span class="badge bg-dark text-white font-mono text-xs ms-1 py-0.5 px-1.5" style="font-size: 0.65rem;">⌘K</span>
+                </button>
+
+                <!-- Dashboard / Sign In Button (Compact 38px) -->
+                {% if user.is_authenticated %}
+                <a href="{% url 'dashboard' %}" class="btn btn-gold-compact px-3 text-white fw-bold d-flex align-items-center justify-content-center rounded-2 text-nowrap" style="height: 38px; font-size: 0.9rem;">
+                    Dashboard
+                </a>
+                <!-- Power / Logout Button -->
+                <a href="{% url 'logout' %}" class="btn btn-power-compact rounded-2 d-flex align-items-center justify-content-center" title="Sign Out" style="height: 38px; width: 38px;">
+                    <i class="fa-solid fa-power-off" style="font-size: 0.95rem;"></i>
+                </a>
+                {% else %}
+                <a href="{% url 'login' %}" class="btn btn-gold-compact px-3 text-white fw-bold d-flex align-items-center justify-content-center rounded-2 text-nowrap" style="height: 38px; font-size: 0.9rem;">
+                    Sign In
+                </a>
+                {% endif %}
+
+                <!-- Mobile Hamburger Toggler (Visible only on small screens) -->
+                <button class="navbar-toggler d-lg-none border-1 border-dark shadow-none rounded-2 text-dark p-1 ms-1" type="button" data-bs-toggle="collapse" data-bs-target="#newspaperMenuMobile" aria-controls="newspaperMenuMobile" aria-expanded="false" aria-label="Toggle navigation" style="height: 38px; width: 38px;">
+                    <i class="fa-solid fa-bars" style="font-size: 0.95rem;"></i>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Mobile Collapsible Menu -->
+        <div class="collapse d-lg-none mt-2 pt-2 border-top border-newspaper" id="newspaperMenuMobile">
+            <ul class="navbar-nav font-nav gap-2 py-1">
+                <li class="nav-item">
+                    <a class="nav-link py-1 px-2 fw-bold text-uppercase {% if request.path == '/' or request.path == '/home/' %}text-gold{% else %}text-dark{% endif %}" href="{% url 'home' %}">STORIES</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link py-1 px-2 fw-semibold text-uppercase text-dark opacity-75" href="{% url 'home' %}#research">RESEARCH</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link py-1 px-2 fw-semibold text-uppercase text-dark opacity-75" href="{% url 'home' %}#journal">JOURNAL</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link py-1 px-2 fw-semibold text-uppercase text-dark opacity-75" href="{% url 'home' %}#categories">CATEGORIES</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link py-1 px-2 fw-semibold text-uppercase text-dark opacity-75" href="{% url 'help_center' %}">ABOUT</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>

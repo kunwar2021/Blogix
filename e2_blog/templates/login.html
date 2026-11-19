@@ -1,0 +1,92 @@
+{% extends './base/base.html' %}
+{% load static %}
+{% block title %}Secure Sign-In — Blogix Executive Account{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center py-5">
+    <div class="col-md-7 col-lg-5">
+        <!-- Subtly Textured Cream Paper Card Container -->
+        <div class="aged-card p-4 p-md-5 rounded-4 shadow-sm border border-newspaper position-relative overflow-hidden" style="background: #FBF9F5;">
+            
+            <!-- Top Crest Header Stack -->
+            <div class="text-center mb-4">
+                <!-- Polished Gold Quill & Inkwell Crest -->
+                <div class="quill-crest-badge d-inline-flex align-items-center justify-content-center mb-3 rounded-circle shadow-sm border border-newspaper" style="width: 72px; height: 72px; background: #F7F3EB;">
+                    <i class="fa-solid fa-feather-pointed fs-2" style="color: #B8893A;"></i>
+                </div>
+                
+                <!-- Tagline -->
+                <div class="font-mono text-xs fw-bold text-uppercase tracking-018 mb-1" style="color: #B8893A;">
+                    BLOGIX EXECUTIVE ACCOUNT
+                </div>
+
+                <!-- Deep Charcoal Serif Title -->
+                <h1 class="font-serif display-5 fw-bold mb-0" style="color: #171717;">
+                    Secure Sign-In
+                </h1>
+            </div>
+
+            <!-- Form Error Alert -->
+            {% if form.errors %}
+            <div class="alert alert-danger border-0 font-inter text-xs rounded-3 mb-4 p-3" style="background-color: #FDF2F2; color: #9B1C1C;">
+                <i class="fa-solid fa-triangle-exclamation me-1"></i> Invalid username or password. Please try again.
+            </div>
+            {% endif %}
+
+            <!-- Sign-In Form -->
+            <form action="{% url 'login' %}" method="POST" class="d-flex flex-column gap-3">
+                {% csrf_token %}
+                
+                <!-- Username Field -->
+                <div>
+                    <label for="id_username" class="form-label font-mono text-xs fw-bold text-uppercase mb-2" style="color: #33322E;">
+                        Username <span style="color: #2563EB;" class="fw-bold">*</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        name="username" 
+                        id="id_username" 
+                        class="form-control font-inter text-dark shadow-none" 
+                        value="kunwar_bansal"
+                        placeholder="Enter username"
+                        style="background-color: #F0F4F8 !important; border: 1px solid #DDD2BF !important; height: 50px; border-radius: 12px; padding-left: 16px;" 
+                        required
+                    >
+                </div>
+
+                <!-- Password Field -->
+                <div>
+                    <label for="id_password" class="form-label font-mono text-xs fw-bold text-uppercase mb-2" style="color: #33322E;">
+                        Password <span style="color: #2563EB;" class="fw-bold">*</span>
+                    </label>
+                    <input 
+                        type="password" 
+                        name="password" 
+                        id="id_password" 
+                        class="form-control font-inter text-dark shadow-none" 
+                        value="••••••••"
+                        placeholder="••••••••"
+                        style="background-color: #F0F4F8 !important; border: 1px solid #DDD2BF !important; height: 50px; border-radius: 12px; padding-left: 16px;" 
+                        required
+                    >
+                </div>
+
+                <!-- Prominent Solid Brown Button -->
+                <button type="submit" class="btn font-mono w-100 mt-3 py-3 text-white fw-bold text-uppercase text-xs d-flex align-items-center justify-content-center gap-2 rounded-3" style="background-color: #6B532F; border: none; height: 52px; transition: all 200ms ease;">
+                    <span>Sign In</span>
+                    <i class="fa-solid fa-door-open ms-1"></i>
+                </button>
+            </form>
+
+            <!-- Bottom Single-Line Text Link -->
+            <div class="text-center pt-4 mt-3 border-top border-newspaper font-inter text-xs" style="color: #59524A;">
+                Don't have an account? 
+                <a href="{% url 'register' %}" class="fw-bold text-decoration-none ms-1" style="color: #B8893A !important;">
+                    Register Here
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

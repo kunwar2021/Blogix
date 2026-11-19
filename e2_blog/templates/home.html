@@ -1,0 +1,394 @@
+{% extends './base/base.html' %}
+{% load static %}
+{% block title %}BLOGIX — Apple × Wired × NYT Magazine{% endblock %}
+
+{% block content %}
+
+<!-- ==========================================================================
+   SECTION 1: HERO SECTION (COMBINED HERO CARD WITH CIRCULAR WORDCLOUD GRAPHIC)
+   ========================================================================== -->
+<section class="aged-hero-card section-gap-40 position-relative mb-5 p-4 p-md-5 p-lg-6" style="background: #FBF9F5;">
+    <div class="row g-4 g-lg-5 align-items-center">
+        <!-- Left Column: Headline, Subtitle, Buttons, Metadata -->
+        <div class="col-lg-6">
+            <span class="badge bg-gold text-white font-mono text-xs px-3 py-2 uppercase rounded-1 mb-3 d-inline-block fw-bold tracking-018">
+                FEATURED STORY &bull; ISSUE No.42
+            </span>
+
+            <!-- Large Display Serif Headline -->
+            <h1 class="font-serif text-dark display-3 fw-bold mb-3 leading-tight hero-text-anim">
+                Crafting the Perfect Digital Essay
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="font-inter fs-4 text-body-dark mb-4 leading-relaxed">
+                Introducing Blogix, the next-generation editor designed to make creative writing and professional content creation seamless. Learn how it empowers everyone, from students to storytellers, to share their voice with clarity and impact.
+            </p>
+
+            <div class="d-flex flex-wrap gap-3 align-items-center mb-4">
+                {% for post in featured_post %}
+                {% if forloop.first %}
+                <a href="{% url 'blogs' post.slug %}" class="btn btn-gold font-mono px-4 py-3 rounded-2 fw-bold text-uppercase text-xs">
+                    READ STORY <i class="fa-solid fa-arrow-right-long ms-2"></i>
+                </a>
+                {% endif %}
+                {% empty %}
+                <a href="#stories" class="btn btn-gold font-mono px-4 py-3 rounded-2 fw-bold text-uppercase text-xs">
+                    READ STORY <i class="fa-solid fa-arrow-right-long ms-2"></i>
+                </a>
+                {% endfor %}
+
+                <a href="#research" class="btn btn-aged-outline font-mono px-4 py-3 rounded-2 fw-bold text-uppercase text-xs d-inline-flex align-items-center">
+                    <span>EXPLORE RESEARCH</span> <i class="fa-solid fa-flask ms-2"></i>
+                </a>
+            </div>
+
+            <!-- Metadata Row Below Headline -->
+            <div class="pt-4 border-top border-newspaper font-mono text-xs text-muted-paper d-flex flex-wrap gap-2 align-items-center">
+                <span><i class="fa-regular fa-clock me-1 text-gold"></i> 8 MIN READ</span>
+                <span>&bull;</span>
+                <span><i class="fa-regular fa-calendar me-1 text-gold"></i> JULY 2026</span>
+                <span>&bull;</span>
+                <span class="text-gold fw-bold">DIGITAL COMMUNICATION</span>
+                <span>&bull;</span>
+                <span>BLOGIX EDITORIAL LAB</span>
+            </div>
+        </div>
+
+        <!-- Right Column: Large Seamlessly Integrated Blogix Editor Graphic -->
+        <div class="col-lg-6 text-center">
+            <div class="hero-wordcloud-frame rounded-4 overflow-hidden position-relative shadow-lg border border-newspaper p-2 bg-white" style="width: 100%;">
+                <img src="{% static 'images/blogix_editor_ui.png' %}" alt="Blogix Editor Workspace Graphic" class="w-100 img-fluid object-contain rounded-3" style="max-height: 620px; width: 100%; display: block;" />
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ==========================================================================
+   SECTION 2: FEATURED TOPICS (GRID OF TOPIC CARDS WITH ICON + TITLE + DESC)
+   ========================================================================== -->
+<section id="categories" class="featured-topics-section section-gap-40">
+    <div class="aged-card p-4 p-md-5 rounded-4">
+        <div class="section-header-bar p-3 px-4 rounded-3 mb-4 d-flex align-items-center justify-content-between border border-newspaper" style="background: #F7F3EB;">
+            <h5 class="font-mono text-uppercase text-dark fw-bold mb-0 text-xs tracking-018">
+                FEATURED TOPICS &bull; LATEST DOMAINS
+            </h5>
+            <span class="font-mono text-muted-paper text-xs">CURATED KNOWLEDGE</span>
+        </div>
+
+        <div class="row g-3 g-md-4">
+            <!-- Topic 1: Artificial Intelligence (from Latest Story #13) -->
+            <div class="col-md-6 col-lg-4">
+                <a href="{% url 'blogs' 'future-of-ai-in-software-development' %}" class="text-decoration-none">
+                    <div class="topic-grid-card p-3 rounded-3 h-100 border border-newspaper">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i class="fa-solid fa-brain text-gold fs-5"></i>
+                            <h6 class="font-serif fw-bold text-dark mb-0 fs-5">Artificial Intelligence</h6>
+                        </div>
+                        <p class="font-inter fs-6 text-body-dark mb-0">Discover how artificial intelligence is reshaping software development, cloud computing, and digital workflows.</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Topic 2: TypeScript & System Design (from Latest Story #17) -->
+            <div class="col-md-6 col-lg-4">
+                <a href="{% url 'blogs' 'mastering-typescript-5-system-design' %}" class="text-decoration-none">
+                    <div class="topic-grid-card p-3 rounded-3 h-100 border border-newspaper">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i class="fa-solid fa-code text-gold fs-5"></i>
+                            <h6 class="font-serif fw-bold text-dark mb-0 fs-5">TypeScript &amp; Systems</h6>
+                        </div>
+                        <p class="font-inter fs-6 text-body-dark mb-0">Type safety, algebraic data structures, and maintainable enterprise application patterns.</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Topic 3: AI-Native Startups (from Latest Story #16) -->
+            <div class="col-md-6 col-lg-4">
+                <a href="{% url 'blogs' 'ai-native-startup-playbook-2026' %}" class="text-decoration-none">
+                    <div class="topic-grid-card p-3 rounded-3 h-100 border border-newspaper">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i class="fa-solid fa-rocket text-gold fs-5"></i>
+                            <h6 class="font-serif fw-bold text-dark mb-0 fs-5">Startups &amp; Ventures</h6>
+                        </div>
+                        <p class="font-inter fs-6 text-body-dark mb-0">How small engineering teams leverage generative workflows and autonomous agents to scale rapidly.</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Topic 4: Cybersecurity & Zero-Trust (from Latest Story #15) -->
+            <div class="col-md-6 col-lg-4">
+                <a href="{% url 'blogs' 'zero-trust-network-architecture-cloud' %}" class="text-decoration-none">
+                    <div class="topic-grid-card p-3 rounded-3 h-100 border border-newspaper">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i class="fa-solid fa-shield-halved text-gold fs-5"></i>
+                            <h6 class="font-serif fw-bold text-dark mb-0 fs-5">Cybersecurity</h6>
+                        </div>
+                        <p class="font-inter fs-6 text-body-dark mb-0">Securing microservice clusters with identity-aware proxy protocols and post-quantum encryption layers.</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Topic 5: Next.js & Web Architecture (from Latest Story #14) -->
+            <div class="col-md-6 col-lg-4">
+                <a href="{% url 'blogs' 'building-scalable-web-systems-nextjs-react' %}" class="text-decoration-none">
+                    <div class="topic-grid-card p-3 rounded-3 h-100 border border-newspaper">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i class="fa-solid fa-layer-group text-gold fs-5"></i>
+                            <h6 class="font-serif fw-bold text-dark mb-0 fs-5">Next.js &amp; Web Systems</h6>
+                        </div>
+                        <p class="font-inter fs-6 text-body-dark mb-0">Modern server components, dynamic caching, and fullstack architectural patterns for high-performance applications.</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Topic 6: Research & Whitepapers -->
+            <div class="col-md-6 col-lg-4">
+                <a href="#research" class="text-decoration-none">
+                    <div class="topic-grid-card p-3 rounded-3 h-100 border border-newspaper">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i class="fa-solid fa-flask text-gold fs-5"></i>
+                            <h6 class="font-serif fw-bold text-dark mb-0 fs-5">Technical Research</h6>
+                        </div>
+                        <p class="font-inter fs-6 text-body-dark mb-0">Whitepapers, empirical benchmarks, and technical case studies authored by Blogix Editorial.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================================================
+   SECTION 3: FEATURED EDITORIAL STORY (AI PUZZLE PIECE CARD ATTACHMENT)
+   ========================================================================== -->
+<section class="featured-article-section section-gap-40">
+    {% for post in featured_post %}
+    {% if forloop.first %}
+    <div class="aged-card p-4 p-md-5 rounded-4 border border-newspaper shadow-sm" style="background: #FBF9F5;">
+        <!-- Top Centered Metadata Stack -->
+        <div class="text-center mb-3">
+            <span class="badge font-mono text-xs px-3 py-2 uppercase rounded-pill mb-2 d-inline-block fw-bold tracking-018" style="background: #9E8B47; color: #FFFFFF;">
+                ARTIFICIAL INTELLIGENCE
+            </span>
+            <div class="font-mono text-xs text-muted-paper">
+                &bull; 6 MIN READ &bull; JULY 2026
+            </div>
+        </div>
+
+        <!-- Centered Display Serif Headline -->
+        <h2 class="font-serif display-4 fw-bold text-dark text-center mb-4 leading-tight mx-auto" style="max-width: 900px;">
+            <a href="{% url 'blogs' post.slug %}" class="article-title-link text-center">
+                The Future of Artificial Intelligence in Modern Software Development
+            </a>
+        </h2>
+
+        <!-- Large Rounded AI Puzzle Photo Box -->
+        <div class="story-cover-frame rounded-4 overflow-hidden border border-newspaper mb-4 shadow-sm" style="max-height: 480px;">
+            <img src="{% static 'images/ai_puzzle_story.jpg' %}" alt="The Future of Artificial Intelligence in Modern Software Development" class="w-100 h-100 object-cover" />
+        </div>
+
+        <!-- Bottom Description Copy & Read Story Button Row -->
+        <div class="row align-items-center g-3">
+            <div class="col-lg-8">
+                <p class="font-inter fs-4 text-body-dark mb-0 leading-relaxed">
+                    Discover how artificial intelligence is reshaping software development, cloud computing, cybersecurity, and the future of digital products.
+                </p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a href="{% url 'blogs' post.slug %}" class="btn font-mono px-4 py-3 rounded-3 fw-bold text-uppercase text-xs text-white" style="background: #9E8B47;">
+                    READ STORY &rarr;
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+</section>
+
+<!-- ==========================================================================
+   SECTION 4: LATEST STORIES (THREE EDITORIAL CARDS WITH CIRCULAR GRAPHICS)
+   ========================================================================== -->
+<section id="stories" class="latest-articles-section section-gap-40">
+    <div class="section-header-bar p-3 px-4 rounded-3 mb-4 d-flex align-items-center justify-content-between border border-newspaper" style="background: #F7F3EB;">
+        <h3 class="font-serif fw-bold text-dark mb-0 fs-2">Latest Stories</h3>
+        <span class="font-mono text-muted-paper text-xs">UPDATED DAILY</span>
+    </div>
+
+    <div class="row g-4">
+        <!-- Card 1: Geopolitics of Global Trade -->
+        <div class="col-md-6 col-lg-4">
+            <div class="aged-article-card p-4 rounded-4 h-100 d-flex flex-column justify-content-between" style="background: #FBF9F5;">
+                <div>
+                    <div class="article-cover-frame position-relative overflow-hidden rounded-4 mb-3 text-center" style="max-height: 240px;">
+                        <img src="{% static 'images/story_geopolitics_trade.jpg' %}" alt="The Geopolitics of Global Trade: Navigating 2026 Tariff Realities" class="w-100 h-100 object-cover rounded-4" />
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <span class="badge bg-gold text-white font-mono text-xs px-2 py-1 uppercase rounded-1 fw-bold">International Relations</span>
+                        <span class="font-mono text-muted-paper text-xs">Jul 29, 2026 &bull; 5 min read</span>
+                    </div>
+                    <h4 class="font-serif fw-bold mb-2 fs-3">
+                        <a href="{% url 'search' %}?keyword=International Relations" class="article-title-link">
+                            The Geopolitics of Global Trade: Navigating 2026 Tariff Realities
+                        </a>
+                    </h4>
+                    <p class="font-inter fs-5 text-body-dark mb-3 leading-relaxed">
+                        An analysis of shifting bilateral trade agreements, supply chain realignments, and how national economic policies are reshaping global diplomatic ties.
+                    </p>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between pt-3 border-top border-newspaper font-mono text-xs mt-auto">
+                    <span class="fw-bold text-gold">BY BLOGIX_EDITORIAL</span>
+                    <a href="{% url 'search' %}?keyword=International Relations" class="text-dark fw-bold text-decoration-none hover-gold">
+                        Read Story &rarr;
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2: Governance in 2026 -->
+        <div class="col-md-6 col-lg-4">
+            <div class="aged-article-card p-4 rounded-4 h-100 d-flex flex-column justify-content-between" style="background: #FBF9F5;">
+                <div>
+                    <div class="article-cover-frame position-relative overflow-hidden rounded-4 mb-3 text-center" style="max-height: 240px;">
+                        <img src="{% static 'images/story_governance_law.jpg' %}" alt="Institutional Autonomy vs. Legislative Oversight: Governance in 2026" class="w-100 h-100 object-cover rounded-4" />
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <span class="badge bg-gold text-white font-mono text-xs px-2 py-1 uppercase rounded-1 fw-bold">Governance & Law</span>
+                        <span class="font-mono text-muted-paper text-xs">Jul 29, 2026 &bull; 4 min read</span>
+                    </div>
+                    <h4 class="font-serif fw-bold mb-2 fs-3">
+                        <a href="{% url 'search' %}?keyword=Governance" class="article-title-link">
+                            Institutional Autonomy vs. Legislative Oversight: Governance in 2026
+                        </a>
+                    </h4>
+                    <p class="font-inter fs-5 text-body-dark mb-3 leading-relaxed">
+                        Examining recent legislative amendments, parliamentary debates over statutory bodies, and the evolving balance of power between federal executive mandates and institutional independence.
+                    </p>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between pt-3 border-top border-newspaper font-mono text-xs mt-auto">
+                    <span class="fw-bold text-gold">BY BLOGIX_EDITORIAL</span>
+                    <a href="{% url 'search' %}?keyword=Governance" class="text-dark fw-bold text-decoration-none hover-gold">
+                        Read Story &rarr;
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 3: Indo-Pacific Alliances -->
+        <div class="col-md-6 col-lg-4">
+            <div class="aged-article-card p-4 rounded-4 h-100 d-flex flex-column justify-content-between" style="background: #FBF9F5;">
+                <div>
+                    <div class="article-cover-frame position-relative overflow-hidden rounded-4 mb-3 text-center" style="max-height: 240px;">
+                        <img src="{% static 'images/story_indopacific_alliances.jpg' %}" alt="Strategic Alliances in the Indo-Pacific: Defense and Diplomacy" class="w-100 h-100 object-cover rounded-4" />
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <span class="badge bg-gold text-white font-mono text-xs px-2 py-1 uppercase rounded-1 fw-bold">Global Politics</span>
+                        <span class="font-mono text-muted-paper text-xs">Jul 29, 2026 &bull; 6 min read</span>
+                    </div>
+                    <h4 class="font-serif fw-bold mb-2 fs-3">
+                        <a href="{% url 'search' %}?keyword=Global Politics" class="article-title-link">
+                            Strategic Alliances in the Indo-Pacific: Defense and Diplomacy
+                        </a>
+                    </h4>
+                    <p class="font-inter fs-5 text-body-dark mb-3 leading-relaxed">
+                        How middle-power coalitions, maritime security pacts, and regional economic partnerships are redefining balance-of-power dynamics across major global waterways.
+                    </p>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between pt-3 border-top border-newspaper font-mono text-xs mt-auto">
+                    <span class="fw-bold text-gold">BY BLOGIX_EDITORIAL</span>
+                    <a href="{% url 'search' %}?keyword=Global Politics" class="text-dark fw-bold text-decoration-none hover-gold">
+                        Read Story &rarr;
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ==========================================================================
+   SECTION 5: BLOGIX RESEARCH (MUSEUM-QUALITY REFINED TECHNICAL CARD)
+   ========================================================================== -->
+<section id="research" class="research-section section-gap-40">
+    <div class="section-header-bar p-3 px-4 rounded-3 mb-4 d-flex align-items-center justify-content-between border border-newspaper" style="background: #F7F3EB;">
+        <h3 class="font-serif fw-bold text-dark mb-0 fs-2">BLOGIX RESEARCH</h3>
+        <span class="font-mono text-gold fw-bold text-xs tracking-018">TECHNICAL WHITEPAPER</span>
+    </div>
+
+    <div class="row g-4">
+        {% for post in posts|slice:"3:" %}
+        <div class="col-md-6">
+            <div class="aged-card p-4 p-md-5 rounded-4 h-100 d-flex flex-column justify-content-between">
+                <div>
+                    <span class="font-mono text-gold text-xs fw-bold d-block mb-2 tracking-018">PAPER Nº {{ forloop.counter }}</span>
+                    <h4 class="font-serif fw-bold mb-3 fs-3 leading-tight">
+                        <a href="{% url 'blogs' post.slug %}" class="article-title-link">
+                            {{ post.title }}
+                        </a>
+                    </h4>
+                    <p class="font-inter fs-5 text-body-dark mb-4 leading-relaxed">
+                        {{ post.short_description }}
+                    </p>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between pt-4 border-top border-newspaper font-mono text-xs mt-auto">
+                    <span class="text-dark fw-bold tracking-018">AUTHORED BY BLOGIX EDITORIAL</span>
+                    <a href="{% url 'blogs' post.slug %}" class="btn btn-gold-newspaper btn-sm font-mono px-4 py-2 rounded-2 fw-bold text-xs d-inline-flex align-items-center gap-2">
+                        <span>Read Paper</span>
+                        <i class="fa-solid fa-arrow-right-long ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- ==========================================================================
+   SECTION 6: PREMIUM AI NEWSLETTER HERO CARD (THE AI NEWSLETTER WORTH READING)
+   ========================================================================== -->
+<section class="newsletter-section section-gap-40">
+    <div class="premium-newsletter-card p-4 p-md-5 p-lg-6 rounded-4 position-relative overflow-hidden">
+        <div class="newsletter-radial-glow"></div>
+        <div class="newsletter-grid position-relative z-2">
+            <!-- Left Text Column -->
+            <div>
+                <span class="badge bg-gold text-white font-mono text-xs px-3 py-2 uppercase rounded-1 fw-bold mb-3 d-inline-block tracking-018">
+                    PREMIUM AI NEWSLETTER
+                </span>
+                <h2 class="font-serif display-4 fw-bold text-dark mb-3">
+                    The AI Newsletter Worth Reading.
+                </h2>
+                <p class="font-inter fs-4 text-body-dark mb-0 leading-relaxed">
+                    Get the week's biggest AI breakthroughs, tools, and startup news in a 5-minute read. Trusted by thousands of developers and founders.
+                </p>
+            </div>
+
+            <!-- Right Input Stack Column -->
+            <div>
+                <form action="#" method="POST" class="d-flex flex-column gap-3">
+                    <div class="position-relative">
+                        <i class="fa-regular fa-envelope position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
+                        <input type="email" class="form-control form-control-paper-large font-mono text-dark ps-5" placeholder="Enter your work email" required>
+                    </div>
+                    <button class="btn btn-gold-newspaper w-100 font-mono py-3 rounded-3 fw-bold text-uppercase text-xs d-flex align-items-center justify-content-center gap-2" type="submit">
+                        <span>Join 25,000+ Readers</span>
+                        <i class="fa-solid fa-arrow-right-long ms-1"></i>
+                    </button>
+                    <div class="text-center font-mono text-xs text-muted-paper mt-1">
+                        <span>Free forever</span> &bull; <span>Every Friday</span> &bull; <span>No spam</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

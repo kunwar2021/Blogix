@@ -1,0 +1,65 @@
+{% extends './base/base.html' %}
+{% load static %}
+{% block title %}Create Account — Blogix Executive{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center py-5">
+    <div class="col-md-7 col-lg-6">
+        <!-- Subtly Textured Cream Paper Card Container -->
+        <div class="aged-card p-4 p-md-5 rounded-4 shadow-sm border border-newspaper position-relative overflow-hidden" style="background: #FBF9F5;">
+            
+            <!-- Top Crest Header Stack -->
+            <div class="text-center mb-4">
+                <div class="quill-crest-badge d-inline-flex align-items-center justify-content-center mb-3 rounded-circle shadow-sm border border-newspaper" style="width: 72px; height: 72px; background: #F7F3EB;">
+                    <i class="fa-solid fa-user-plus fs-2" style="color: #B8893A;"></i>
+                </div>
+                
+                <div class="font-mono text-xs fw-bold text-uppercase tracking-018 mb-1" style="color: #B8893A;">
+                    BLOGIX EXECUTIVE MEMBERSHIP
+                </div>
+
+                <h1 class="font-serif display-5 fw-bold mb-0" style="color: #171717;">
+                    Create Executive Account
+                </h1>
+            </div>
+
+            <!-- Registration Form -->
+            <form action="{% url 'register' %}" method="POST" class="d-flex flex-column gap-3">
+                {% csrf_token %}
+                
+                {% for field in form %}
+                <div>
+                    <label for="{{ field.id_for_label }}" class="form-label font-mono text-xs fw-bold text-uppercase mb-2" style="color: #33322E;">
+                        {{ field.label }} {% if field.field.required %}<span style="color: #2563EB;" class="fw-bold">*</span>{% endif %}
+                    </label>
+                    <input 
+                        type="{{ field.field.widget.input_type|default:'text' }}" 
+                        name="{{ field.name }}" 
+                        id="{{ field.id_for_label }}" 
+                        class="form-control font-inter text-dark shadow-none" 
+                        style="background-color: #F0F4F8 !important; border: 1px solid #DDD2BF !important; height: 50px; border-radius: 12px; padding-left: 16px;" 
+                        {% if field.field.required %}required{% endif %}
+                    >
+                    {% if field.errors %}
+                    <div class="text-danger font-mono text-xs mt-1">{{ field.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+
+                <button type="submit" class="btn font-mono w-100 mt-3 py-3 text-white fw-bold text-uppercase text-xs d-flex align-items-center justify-content-center gap-2 rounded-3" style="background-color: #6B532F; border: none; height: 52px; transition: all 200ms ease;">
+                    <span>Register Account</span>
+                    <i class="fa-solid fa-check-circle ms-1"></i>
+                </button>
+            </form>
+
+            <div class="text-center pt-4 mt-3 border-top border-newspaper font-inter text-xs" style="color: #59524A;">
+                Already registered? 
+                <a href="{% url 'login' %}" class="fw-bold text-decoration-none ms-1" style="color: #B8893A !important;">
+                    Sign In Here
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
